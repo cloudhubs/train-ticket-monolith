@@ -1,0 +1,8 @@
+# Ignore .idea directory
+.idea/
+
+# Ignore specific files
+test/java/test1.iml
+test/test.iml
+src/test/java/test1.iml
+src/test/test.iml
