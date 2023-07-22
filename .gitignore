@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -31,3 +32,13 @@ build/
 
 ### VS Code ###
 .vscode/
+=======
+# Ignore .idea directory
+.idea/
+
+# Ignore specific files
+test/java/test1.iml
+test/test.iml
+src/test/java/test1.iml
+src/test/test.iml
+>>>>>>> 0f009c5a2aeae71a7b1ed45d29394a3bd6cb8f87
