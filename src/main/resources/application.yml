@@ -25,7 +25,12 @@ spring:
           starttls:
             enable: true
             required: true
-
   rabbitmq:
     host: localhost
     port: 5672
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+swagger:
+  controllerPackage: edu.fudanselab.trainticket.controller

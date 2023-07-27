@@ -1,8 +1,6 @@
 package edu.fudanselab.trainticket.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.fudanselab.trainticket.entity.OrderStatus;
-import edu.fudanselab.trainticket.entity.SeatClass;
 import edu.fudanselab.trainticket.util.StringUtils;
 import lombok.Data;
 import lombok.ToString;
@@ -10,8 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
-
-import edu.fudanselab.trainticket.entity.SeatClass;
 
 /**
  * @author fdse

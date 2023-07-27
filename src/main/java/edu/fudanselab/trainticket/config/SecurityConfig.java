@@ -1,3 +1,4 @@
+/*
 package edu.fudanselab.trainticket.config;
 
 import edu.fudan.common.security.jwt.JWTFilter;
@@ -18,32 +19,38 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
+*/
 /**
  * @author fdse
- */
+ *//*
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /**
+    */
+/**
      * load password encoder
      *
      * @return PasswordEncoder
-     */
+     *//*
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /**
+    */
+/**
      * allow cors domain
      * header  By default, only six fields can be taken from the header, and the other fields can only be specified in the header.
      * credentials   Cookies are not sent by default and can only be true if a Cookie is needed
      * Validity of this request
      *
      * @return WebMvcConfigurer
-     */
+     *//*
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
@@ -86,3 +93,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.headers().cacheControl();
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package edu.fudanselab.trainticket.config;
 
 import org.springframework.boot.SpringApplication;
@@ -12,9 +13,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+*/
 /**
  * @author fdse
- */
+ *//*
+
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
@@ -33,3 +36,4 @@ public class ConfigApplication {
         return builder.build();
     }
 }
+*/

@@ -1,21 +1,16 @@
 package edu.fudanselab.trainticket.mq;
 
 import edu.fudanselab.trainticket.util.JsonUtils;
-import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.config.Queues;
 import edu.fudanselab.trainticket.entity.Mail;
 import edu.fudanselab.trainticket.entity.NotifyInfo;
 import edu.fudanselab.trainticket.repository.NotifyRepository;
-import edu.fudanselab.trainticket.service.MailService;
+import edu.fudanselab.trainticket.service.impl.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -90,3 +85,4 @@ public class RabbitReceive {
         notifyRepository.save(info);
     }
 }
+
