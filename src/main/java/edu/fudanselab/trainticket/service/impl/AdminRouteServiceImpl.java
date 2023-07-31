@@ -30,7 +30,8 @@ public class AdminRouteServiceImpl implements AdminRouteService {
     public static final Logger logger = LoggerFactory.getLogger(AdminRouteServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override

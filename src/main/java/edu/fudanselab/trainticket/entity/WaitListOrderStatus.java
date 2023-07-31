@@ -1,7 +1,5 @@
 package edu.fudanselab.trainticket.entity;
 
-import edu.fudanselab.trainticket.entity.OrderStatus;
-
 public enum WaitListOrderStatus {
     /**
      * not paid

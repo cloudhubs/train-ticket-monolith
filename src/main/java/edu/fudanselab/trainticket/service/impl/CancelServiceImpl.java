@@ -36,7 +36,8 @@ public class CancelServiceImpl implements CancelService {
     String orderStatusCancelNotPermitted = "Order Status Cancel Not Permitted";
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override

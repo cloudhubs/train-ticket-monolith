@@ -34,7 +34,8 @@ public class BasicServiceImpl implements BasicService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override

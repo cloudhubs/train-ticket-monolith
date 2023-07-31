@@ -33,7 +33,8 @@ public class RoutePlanServiceImpl implements RoutePlanService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoutePlanServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override

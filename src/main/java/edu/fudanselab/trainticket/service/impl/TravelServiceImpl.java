@@ -54,7 +54,8 @@ public class TravelServiceImpl implements TravelService {
     private static final ExecutorService executorService = Executors.newFixedThreadPool(20, new CustomizableThreadFactory("HttpClientThreadPool-"));
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     String success = "Success";

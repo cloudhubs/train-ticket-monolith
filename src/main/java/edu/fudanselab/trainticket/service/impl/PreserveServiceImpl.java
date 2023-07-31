@@ -41,7 +41,9 @@ public class PreserveServiceImpl implements PreserveService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PreserveServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName; }
+        return "http://localhost";
+//        return "http://" + serviceName;
+    }
 
     @Override
     public Response preserve(OrderTicketsInfo oti, HttpHeaders headers) {

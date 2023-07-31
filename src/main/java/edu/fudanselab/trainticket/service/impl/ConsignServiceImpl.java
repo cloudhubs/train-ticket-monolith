@@ -40,7 +40,8 @@ public class ConsignServiceImpl implements ConsignService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsignServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
 

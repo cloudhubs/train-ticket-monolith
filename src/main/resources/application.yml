@@ -34,3 +34,5 @@ spring:
 
 swagger:
   controllerPackage: edu.fudanselab.trainticket.controller
+
+test_send_mail_user: chysonnet@gmail.com

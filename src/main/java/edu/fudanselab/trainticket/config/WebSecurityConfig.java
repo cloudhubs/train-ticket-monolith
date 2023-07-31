@@ -1,12 +1,13 @@
-/*
+
 package edu.fudanselab.trainticket.config;
 
 
-import edu.fudan.common.security.jwt.JWTFilter;
+import edu.fudanselab.trainticket.config.jwt.JWTFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,15 +26,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
-*/
+
 /**
  * @author fdse
- *//*
+ */
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(1000)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @Autowired
@@ -50,35 +55,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(this.userDetailsService)
-                .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder);
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins(ALL)
-                        .allowedMethods(ALL)
-                        .allowedHeaders(ALL)
-                        .allowCredentials(false)
-                        .maxAge(3600);
-            }
-        };
-    }
 
-    */
-/**
+
+
+    /**
      * load password encoder
      *
      * @return PasswordEncoder
-     *//*
+     */
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -103,4 +92,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.headers().cacheControl();
     }
 }
-*/
+

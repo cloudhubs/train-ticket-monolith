@@ -40,7 +40,8 @@ public class SecurityServiceImpl implements SecurityService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     String success = "Success";

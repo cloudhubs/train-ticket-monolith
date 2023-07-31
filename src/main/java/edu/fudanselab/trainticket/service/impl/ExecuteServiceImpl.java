@@ -30,7 +30,8 @@ public class ExecuteServiceImpl implements ExecuteService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecuteServiceImpl.class);
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
 

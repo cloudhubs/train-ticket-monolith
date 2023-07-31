@@ -42,7 +42,9 @@ public class UserServiceImpl implements UserService {
     private RestTemplate restTemplate;
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override

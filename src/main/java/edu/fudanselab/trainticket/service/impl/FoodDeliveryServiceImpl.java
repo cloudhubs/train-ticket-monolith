@@ -38,7 +38,8 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
     private DiscoveryClient discoveryClient;*/
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override

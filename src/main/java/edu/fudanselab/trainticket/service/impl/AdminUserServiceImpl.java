@@ -35,7 +35,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 //    private final String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override

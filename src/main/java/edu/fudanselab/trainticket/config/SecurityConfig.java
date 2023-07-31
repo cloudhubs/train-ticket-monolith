@@ -1,9 +1,11 @@
-/*
+
 package edu.fudanselab.trainticket.config;
 
-import edu.fudan.common.security.jwt.JWTFilter;
+import edu.fudanselab.trainticket.config.jwt.JWTFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,39 +21,42 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
-*/
+
 /**
  * @author fdse
- *//*
+ */
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(10)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    */
-/**
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
+    /**
      * load password encoder
      *
      * @return PasswordEncoder
-     *//*
+     */
 
-    @Bean
+    /*@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
-    */
-/**
+
+    /**
      * allow cors domain
      * header  By default, only six fields can be taken from the header, and the other fields can only be specified in the header.
      * credentials   Cookies are not sent by default and can only be true if a Cookie is needed
      * Validity of this request
      *
      * @return WebMvcConfigurer
-     *//*
+     */
 
-    @Bean
+    /*@Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
             @Override
@@ -64,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .maxAge(3600);
             }
         };
-    }
+    }*/
 
 
     @Override
@@ -93,4 +98,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.headers().cacheControl();
     }
 }
-*/
+

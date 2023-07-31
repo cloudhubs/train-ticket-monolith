@@ -40,7 +40,8 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PreserveOtherServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
+        return "http://localhost";
+//        return "http://" + serviceName;
     }
 
     @Override
