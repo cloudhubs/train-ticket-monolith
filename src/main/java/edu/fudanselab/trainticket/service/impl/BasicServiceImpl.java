@@ -2,7 +2,11 @@ package edu.fudanselab.trainticket.service.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.TravelResult;
+import edu.fudanselab.trainticket.entity.Route;
+import edu.fudanselab.trainticket.entity.Travel;
+import edu.fudanselab.trainticket.entity.PriceConfig;
+import edu.fudanselab.trainticket.entity.TrainType;
 import edu.fudanselab.trainticket.util.JsonUtils;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.service.BasicService;

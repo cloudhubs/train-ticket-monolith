@@ -1,6 +1,7 @@
 package edu.fudanselab.trainticket.service;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.TransferTravelInfo;
+import edu.fudanselab.trainticket.entity.TripInfo;
 import edu.fudanselab.trainticket.util.Response;
 import org.springframework.http.HttpHeaders;
 import edu.fudanselab.trainticket.entity.TransferTravelInfo;

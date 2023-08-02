@@ -1,6 +1,9 @@
 package edu.fudanselab.trainticket.service.impl;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Assurance;
+import edu.fudanselab.trainticket.entity.AssuranceType;
+import edu.fudanselab.trainticket.entity.AssuranceTypeBean;
+import edu.fudanselab.trainticket.entity.PlainAssurance;
 import edu.fudanselab.trainticket.repository.AssuranceRepository;
 import edu.fudanselab.trainticket.service.AssuranceService;
 import edu.fudanselab.trainticket.util.Response;

@@ -1,7 +1,13 @@
 package edu.fudanselab.trainticket.service.impl;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Seat;
+import edu.fudanselab.trainticket.entity.LeftTicketInfo;
+import edu.fudanselab.trainticket.entity.OrderStatus;
+import edu.fudanselab.trainticket.entity.SoldTicket;
+import edu.fudanselab.trainticket.entity.SeatClass;
+import edu.fudanselab.trainticket.entity.OrderSecurity;
 import edu.fudanselab.trainticket.service.OrderService;
+import edu.fudanselab.trainticket.entity.Ticket;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.util.StringUtils;
 import edu.fudanselab.trainticket.entity.Order;

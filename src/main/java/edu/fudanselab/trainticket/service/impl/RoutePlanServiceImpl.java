@@ -1,6 +1,13 @@
 package edu.fudanselab.trainticket.service.impl;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Route;
+import edu.fudanselab.trainticket.entity.RoutePlanResultUnit;
+import edu.fudanselab.trainticket.entity.TripResponse;
+import edu.fudanselab.trainticket.entity.Trip;
+import edu.fudanselab.trainticket.entity.TripInfo;
+import edu.fudanselab.trainticket.entity.RoutePlanInfo;
+import edu.fudanselab.trainticket.entity.TripAllDetail;
+import edu.fudanselab.trainticket.entity.TripAllDetailInfo;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.util.StringUtils;
 import org.slf4j.Logger;

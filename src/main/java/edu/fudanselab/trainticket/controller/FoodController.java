@@ -1,7 +1,8 @@
 package edu.fudanselab.trainticket.controller;
 
 import edu.fudanselab.trainticket.util.JsonUtils;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.FoodOrder;
+import edu.fudanselab.trainticket.entity.Delivery;
 import edu.fudanselab.trainticket.mq.RabbitSend;
 import edu.fudanselab.trainticket.service.FoodService;
 import org.slf4j.Logger;

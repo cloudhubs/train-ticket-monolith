@@ -2,7 +2,9 @@ package edu.fudanselab.trainticket.service;
 
 import edu.fudanselab.trainticket.entity.Seat;
 import edu.fudanselab.trainticket.util.Response;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Order;
+import edu.fudanselab.trainticket.entity.OrderAlterInfo;
+import edu.fudanselab.trainticket.entity.OrderInfo;
 import org.springframework.http.HttpHeaders;
 
 import java.util.Date;

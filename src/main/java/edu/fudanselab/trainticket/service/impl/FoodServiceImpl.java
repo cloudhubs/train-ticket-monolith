@@ -1,13 +1,14 @@
 package edu.fudanselab.trainticket.service.impl;
 
 import edu.fudanselab.trainticket.entity.Food;
+import edu.fudanselab.trainticket.entity.FoodOrder;
+import edu.fudanselab.trainticket.entity.AllTripFood;
 import edu.fudanselab.trainticket.entity.StationFoodStore;
-import edu.fudanselab.trainticket.entity.TrainFood;
+import edu.fudanselab.trainticket.entity.Delivery;
 import edu.fudanselab.trainticket.service.FoodService;
 import edu.fudanselab.trainticket.util.JsonUtils;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.entity.Route;
-import edu.fudanselab.trainticket.entity.*;
 import edu.fudanselab.trainticket.mq.RabbitSend;
 import edu.fudanselab.trainticket.repository.FoodOrderRepository;
 import org.slf4j.Logger;

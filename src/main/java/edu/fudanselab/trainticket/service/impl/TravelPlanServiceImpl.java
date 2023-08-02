@@ -1,6 +1,12 @@
 package edu.fudanselab.trainticket.service.impl;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.TrainType;
+import edu.fudanselab.trainticket.entity.TripInfo;
+import edu.fudanselab.trainticket.entity.TripResponse;
+import edu.fudanselab.trainticket.entity.RoutePlanInfo;
+import edu.fudanselab.trainticket.entity.RoutePlanResultUnit;
+import edu.fudanselab.trainticket.entity.Seat;
+import edu.fudanselab.trainticket.entity.SeatClass;
 import edu.fudanselab.trainticket.util.JsonUtils;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.util.StringUtils;

@@ -1,7 +1,9 @@
 package edu.fudanselab.trainticket.service;
 
 import edu.fudanselab.trainticket.util.Response;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.PaymentInfo;
+import edu.fudanselab.trainticket.entity.InsidePayment;
+import edu.fudanselab.trainticket.entity.AccountInfo;
 import org.springframework.http.HttpHeaders;
 
 

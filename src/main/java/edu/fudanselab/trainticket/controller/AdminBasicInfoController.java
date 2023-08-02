@@ -1,6 +1,6 @@
 package edu.fudanselab.trainticket.controller;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.PriceInfo;
 import edu.fudanselab.trainticket.service.AdminBasicInfoService;
 import edu.fudanselab.trainticket.entity.Config;
 import edu.fudanselab.trainticket.entity.Contacts;

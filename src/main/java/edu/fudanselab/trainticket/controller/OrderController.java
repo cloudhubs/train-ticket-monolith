@@ -2,7 +2,8 @@ package edu.fudanselab.trainticket.controller;
 
 import edu.fudanselab.trainticket.entity.Seat;
 import edu.fudanselab.trainticket.util.StringUtils;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Order;
+import edu.fudanselab.trainticket.entity.OrderInfo;
 import edu.fudanselab.trainticket.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

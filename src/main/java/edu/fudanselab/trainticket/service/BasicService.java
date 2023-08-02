@@ -2,7 +2,6 @@ package edu.fudanselab.trainticket.service;
 
 import edu.fudanselab.trainticket.entity.Travel;
 import edu.fudanselab.trainticket.util.Response;
-import edu.fudanselab.trainticket.entity.*;
 import org.springframework.http.HttpHeaders;
 
 import java.util.List;

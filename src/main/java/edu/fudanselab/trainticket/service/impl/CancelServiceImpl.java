@@ -1,6 +1,10 @@
 package edu.fudanselab.trainticket.service.impl;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.CommonOrder;
+import edu.fudanselab.trainticket.entity.NotifyInfo;
+import edu.fudanselab.trainticket.entity.OrderStatus;
+import edu.fudanselab.trainticket.entity.User;
+import edu.fudanselab.trainticket.entity.SeatClass;
 import edu.fudanselab.trainticket.service.CancelService;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.util.StringUtils;

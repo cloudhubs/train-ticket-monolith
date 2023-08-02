@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.TrainFood;
 import edu.fudanselab.trainticket.repository.TrainFoodRepository;
 import edu.fudanselab.trainticket.service.TrainFoodService;
 

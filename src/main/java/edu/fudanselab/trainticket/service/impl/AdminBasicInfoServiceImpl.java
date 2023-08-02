@@ -1,6 +1,10 @@
 package edu.fudanselab.trainticket.service.impl;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Config;
+import edu.fudanselab.trainticket.entity.TrainType;
+import edu.fudanselab.trainticket.entity.PriceInfo;
+import edu.fudanselab.trainticket.entity.Contacts;
+import edu.fudanselab.trainticket.entity.Station;
 import edu.fudanselab.trainticket.service.AdminBasicInfoService;
 import edu.fudanselab.trainticket.util.Response;
 import org.slf4j.Logger;

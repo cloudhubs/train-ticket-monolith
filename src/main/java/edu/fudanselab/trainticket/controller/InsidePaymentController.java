@@ -1,6 +1,7 @@
 package edu.fudanselab.trainticket.controller;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.PaymentInfo;
+import edu.fudanselab.trainticket.entity.AccountInfo;
 import edu.fudanselab.trainticket.service.InsidePaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -3,9 +3,13 @@ package edu.fudanselab.trainticket.service.impl;
 
 import edu.fudanselab.trainticket.service.FoodDeliveryService;
 import edu.fudanselab.trainticket.util.Response;
-import edu.fudanselab.trainticket.entity.*;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.FoodDeliveryOrder;
+import edu.fudanselab.trainticket.entity.DeliveryInfo;
+import edu.fudanselab.trainticket.entity.TripOrderInfo;
 import edu.fudanselab.trainticket.repository.FoodDeliveryOrderRepository;
+import edu.fudanselab.trainticket.entity.SeatInfo;
+import edu.fudanselab.trainticket.entity.StationFoodStoreInfo;
+import edu.fudanselab.trainticket.entity.Food;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

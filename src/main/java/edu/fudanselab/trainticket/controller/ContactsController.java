@@ -1,6 +1,6 @@
 package edu.fudanselab.trainticket.controller;
 
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Contacts;
 import edu.fudanselab.trainticket.service.ContactsService;
 import edu.fudanselab.trainticket.util.Response;
 import org.slf4j.Logger;

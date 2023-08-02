@@ -1,7 +1,7 @@
 package edu.fudanselab.trainticket.service.impl;
 
 import edu.fudanselab.trainticket.util.Response;
-import edu.fudanselab.trainticket.entity.*;
+import edu.fudanselab.trainticket.entity.Station;
 import edu.fudanselab.trainticket.repository.StationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
