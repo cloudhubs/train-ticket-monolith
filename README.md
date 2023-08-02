@@ -27,7 +27,7 @@ preserving functionality and ensuring proper service boundaries.
 #### 1. Clone the Repository
 ```bash
 git clone https://github.com/showkat2203/train-ticket-monolith.git 
-cd trainticket/
+cd train-ticket-monolith/
 ```
 
 #### 2. Run the Docker Compose command to set up the necessary infrastructure for the application:
