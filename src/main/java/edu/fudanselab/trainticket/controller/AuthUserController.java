@@ -21,6 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/users")
+@CrossOrigin("/**")
 public class AuthUserController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class AuthUserController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAllUser")
     public ResponseEntity<List<AuthUser>> getAllUser(@RequestHeader HttpHeaders headers) {
         logger.info("[getAllUser][Get all users]");
         return ResponseEntity.ok().body(authUserService.getAllUser(headers));

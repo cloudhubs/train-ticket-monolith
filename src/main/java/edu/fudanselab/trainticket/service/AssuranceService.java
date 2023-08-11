@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * @author fdse
  */
-@Service
+
 public interface AssuranceService {
 
     /**

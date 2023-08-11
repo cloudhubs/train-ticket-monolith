@@ -28,7 +28,7 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 @EnableAsync
 //@IntegrationComponentScan
 @EnableJpaRepositories("edu.fudanselab.trainticket.repository")
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TrainTicketApplication {
 
 	public static void main(String[] args) {

@@ -3,6 +3,8 @@ package edu.fudanselab.trainticket.config;
 
 
 import edu.fudanselab.trainticket.config.jwt.JWTFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -33,10 +35,11 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 
 @Configuration
 @EnableWebSecurity
-@Order(1000)
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Order(1000)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
     @Autowired
     PasswordEncoder passwordEncoder;
 

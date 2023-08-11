@@ -27,7 +27,7 @@ preserving functionality and ensuring proper service boundaries.
 #### 1. Clone the Repository
 ```bash
 git clone https://github.com/showkat2203/train-ticket-monolith.git 
-cd train-ticket-monolith/
+cd trainticket/
 ```
 
 #### 2. Run the Docker Compose command to set up the necessary infrastructure for the application:
@@ -68,7 +68,7 @@ Compare the performance of the extracted microservices against the original mono
 We welcome contributions from the community to improve and expand this benchmark project. If you want to contribute, please follow the guidelines outlined in CONTRIBUTING.md.
 
 #### License
-We will add the license later.
+This project is licensed under the MIT License.
 
 #### Acknowledgments
 We would like to express our gratitude to the creators and maintainers of the Train-Ticket microservices architecture for providing the foundation for this benchmark project.
