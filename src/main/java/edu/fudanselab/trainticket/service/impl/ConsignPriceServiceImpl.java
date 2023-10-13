@@ -67,7 +67,9 @@ public class ConsignPriceServiceImpl implements ConsignPriceService {
         } else {
             originalConfig = new ConsignPrice();
         }
-        originalConfig.setId(config.getId());
+        if (originalConfig.getId() == null) {
+            originalConfig.setId(config.getId());
+        }
         originalConfig.setIndex(0);
         originalConfig.setInitialPrice(config.getInitialPrice());
         originalConfig.setInitialWeight(config.getInitialWeight());
