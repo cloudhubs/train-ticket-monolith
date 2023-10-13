@@ -1,7 +1,6 @@
 
 package edu.fudanselab.trainticket.config;
 
-
 import edu.fudanselab.trainticket.config.jwt.JWTFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,21 +27,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
-
 /**
  * @author fdse
  */
 
 @Configuration
 @EnableWebSecurity
-//@Order(1000)
+// @Order(1000)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
 
     @Autowired
     @Qualifier("userDetailServiceImpl")
@@ -58,19 +53,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(this.userDetailsService)
-                .passwordEncoder(passwordEncoder);
+                .passwordEncoder(passwordEncoder());
     }
-
-
-
 
     /**
      * load password encoder
      *
      * @return PasswordEncoder
      */
-
-
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -80,19 +70,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth", "/api/v1/auth/hello", "/api/v1/user/hello").permitAll()
+                .antMatchers("/api/v1/auth", "/api/v1/auth/hello", "/api/v1/users/hello").permitAll()
                 .antMatchers("/api/v1/users/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/users/*").hasRole("ADMIN")
                 // create user and role while user register
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
-                        "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
+                        "/configuration/**", "/swagger-resources/**", "/v2/**")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class);
 
         httpSecurity.headers().cacheControl();
     }
-}
 
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins(ALL)
+                        .allowedMethods(ALL)
+                        .allowedHeaders(ALL)
+                        .allowCredentials(false)
+                        .maxAge(3600);
+            }
+        };
+    }
+
+    @Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+}

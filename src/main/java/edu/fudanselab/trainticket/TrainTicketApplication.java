@@ -41,24 +41,4 @@ public class TrainTicketApplication {
 		return builder.build();
 	}
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedOrigins(ALL)
-						.allowedMethods(ALL)
-						.allowedHeaders(ALL)
-						.allowCredentials(false)
-						.maxAge(3600);
-			}
-		};
-	}
-
 }
