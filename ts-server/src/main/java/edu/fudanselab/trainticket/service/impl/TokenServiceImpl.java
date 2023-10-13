@@ -7,6 +7,7 @@ import edu.fudanselab.trainticket.entity.AuthUser;
 import edu.fudanselab.trainticket.exception.UserOperationException;
 import edu.fudanselab.trainticket.repository.AuthUserRepository;
 import edu.fudanselab.trainticket.config.jwt.JWTProvider;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.service.TokenService;
 import edu.fudanselab.trainticket.util.Response;
 import org.slf4j.Logger;
@@ -48,9 +49,8 @@ public class TokenServiceImpl implements TokenService {
     /*@Autowired
     private DiscoveryClient discoveryClient;*/
 
-    private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response getToken(BasicAuthDto dto, HttpHeaders headers) throws UserOperationException {
@@ -58,7 +58,7 @@ public class TokenServiceImpl implements TokenService {
         String password = dto.getPassword();
         String verifyCode = dto.getVerificationCode();
 //        LOGGER.info("LOGIN USER :" + username + " __ " + password + " __ " + verifyCode);
-        String verification_code_service_url = getServiceUrl("ts-verification-code-service");
+        String verification_code_service_url = serviceResolver.getServiceUrl("ts-verification-code-service");
         if (!StringUtils.isEmpty(verifyCode)) {
             HttpEntity requestEntity = new HttpEntity(headers);
             ResponseEntity<Boolean> re = restTemplate.exchange(

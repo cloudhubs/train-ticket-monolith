@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import edu.fudanselab.trainticket.service.SeatService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 
 import java.util.List;
 import java.util.Random;
@@ -39,10 +40,8 @@ public class SeatServiceImpl implements SeatService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SeatServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response distributeSeat(Seat seatRequest, HttpHeaders headers) {
@@ -63,7 +62,7 @@ public class SeatServiceImpl implements SeatService {
             HttpEntity requestEntity = new HttpEntity(null);
             //Call the microservice to query for residual Ticket information: the set of the Ticket sold for the specified seat type
             requestEntity = new HttpEntity(seatRequest, null);
-            String order_service_url=getServiceUrl("ts-order-service");
+            String order_service_url=serviceResolver.getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
                     order_service_url + "/api/v1/orderservice/order/tickets",
                     HttpMethod.POST,
@@ -76,7 +75,7 @@ public class SeatServiceImpl implements SeatService {
             SeatServiceImpl.LOGGER.info("[distributeSeat][TrainNumber start][Other Capital Except D and G]");
             //Call the microservice to query for residual Ticket information: the set of the Ticket sold for the specified seat type
             HttpEntity requestEntity = new HttpEntity(seatRequest, null);
-            String order_other_service_url=getServiceUrl("ts-order-other-service");
+            String order_other_service_url=serviceResolver.getServiceUrl("ts-order-other-service");
             re3 = restTemplate.exchange(
                     order_other_service_url + "/api/v1/orderOtherService/orderOther/tickets",
                     HttpMethod.POST,
@@ -147,7 +146,7 @@ public class SeatServiceImpl implements SeatService {
 
             //Call the micro service to query all the station information for the trains
             HttpEntity requestEntity = new HttpEntity(seatRequest, null);
-            String order_service_url=getServiceUrl("ts-order-service");
+            String order_service_url=serviceResolver.getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
                     order_service_url + "/api/v1/orderservice/order/tickets",
                     HttpMethod.POST,
@@ -163,7 +162,7 @@ public class SeatServiceImpl implements SeatService {
             HttpEntity requestEntity = new HttpEntity(null);
             //Call the micro service to query for residual Ticket information: the set of the Ticket sold for the specified seat type
             requestEntity = new HttpEntity(seatRequest, null);
-            String order_other_service_url=getServiceUrl("ts-order-other-service");
+            String order_other_service_url=serviceResolver.getServiceUrl("ts-order-other-service");
             re3 = restTemplate.exchange(
                     order_other_service_url + "/api/v1/orderOtherService/orderOther/tickets",
                     HttpMethod.POST,
@@ -213,7 +212,7 @@ public class SeatServiceImpl implements SeatService {
 
         String configName = "DirectTicketAllocationProportion";
         HttpEntity requestEntity = new HttpEntity(null);
-        String config_service_url = getServiceUrl("ts-config-service");
+        String config_service_url = serviceResolver.getServiceUrl("ts-config-service");
         ResponseEntity<Response<Config>> re = restTemplate.exchange(
                 config_service_url + "/api/v1/configservice/configs/" + configName,
                 HttpMethod.GET,

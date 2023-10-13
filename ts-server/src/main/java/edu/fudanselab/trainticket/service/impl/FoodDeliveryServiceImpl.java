@@ -2,6 +2,7 @@ package edu.fudanselab.trainticket.service.impl;
 
 
 import edu.fudanselab.trainticket.service.FoodDeliveryService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.entity.FoodDeliveryOrder;
 import edu.fudanselab.trainticket.entity.DeliveryInfo;
@@ -41,16 +42,14 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
     /*@Autowired
     private DiscoveryClient discoveryClient;*/
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response createFoodDeliveryOrder(FoodDeliveryOrder fd, HttpHeaders headers) {
         String stationFoodStoreId = fd.getStationFoodStoreId();
 
-        String staion_food_service_url = getServiceUrl("ts-station-food-service");
+        String staion_food_service_url = serviceResolver.getServiceUrl("ts-station-food-service");
 //        staion_food_service_url = "http://ts-station-food-service"; // 测试
         ResponseEntity<Response<StationFoodStoreInfo>> getStationFoodStore = restTemplate.exchange(
                 staion_food_service_url + "/api/v1/stationfoodservice/stationfoodstores/bystoreid/" + stationFoodStoreId,

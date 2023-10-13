@@ -2,6 +2,7 @@ package edu.fudanselab.trainticket.service.impl;
 
 import edu.fudanselab.trainticket.entity.Order;
 import edu.fudanselab.trainticket.service.AdminOrderService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +32,8 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminOrderServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response getAllOrders(HttpHeaders headers) {
@@ -46,7 +44,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         //From ts-order-service
         HttpEntity requestEntity = new HttpEntity(null);
 
-        String order_service_url = getServiceUrl("ts-order-service");
+        String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
         ResponseEntity<Response<ArrayList<Order>>> re = restTemplate.exchange(
                 order_service_url + "/api/v1/orderservice/order",
                 HttpMethod.GET,
@@ -64,7 +62,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         }
         //From ts-order-other-service
         HttpEntity requestEntity2 = new HttpEntity(null);
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
         ResponseEntity<Response<ArrayList<Order>>> re2 = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther",
                 HttpMethod.GET,
@@ -91,7 +89,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         if (trainNumber.startsWith("G") || trainNumber.startsWith("D")) {
             AdminOrderServiceImpl.LOGGER.info("[deleteOrder][Delete Order][orderId: {}, trainNumber: {}]", orderId, trainNumber);
             HttpEntity requestEntity = new HttpEntity(null);
-            String order_service_url = getServiceUrl("ts-order-service");
+            String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
             ResponseEntity<Response> re = restTemplate.exchange(
                      order_service_url + "/api/v1/orderservice/order/" + orderId,
                     HttpMethod.DELETE,
@@ -102,7 +100,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         } else {
             AdminOrderServiceImpl.LOGGER.info("[deleteOrder][Delete Order Other][trainNumber doesn't starts With G or D]");
             HttpEntity requestEntity = new HttpEntity(null);
-            String order_other_service_url = getServiceUrl("ts-order-other-service");
+            String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
             ResponseEntity<Response> re = restTemplate.exchange(
                     order_other_service_url + "/api/v1/orderOtherService/orderOther/" + orderId,
                     HttpMethod.DELETE,
@@ -124,7 +122,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
             AdminOrderServiceImpl.LOGGER.info("[updateOrder][Update Order][trainNumber starts With G or D]");
             HttpEntity requestEntity = new HttpEntity(request, headers);
-            String order_service_url = getServiceUrl("ts-order-service");
+            String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
             ResponseEntity<Response> re = restTemplate.exchange(
                     order_service_url + "/api/v1/orderservice/order/admin",
                     HttpMethod.PUT,
@@ -135,7 +133,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         } else {
             AdminOrderServiceImpl.LOGGER.info("[updateOrder][Add New Order Other][trainNumber doesn't starts With G or D]");
             HttpEntity requestEntity = new HttpEntity(request, headers);
-            String order_other_service_url = getServiceUrl("ts-order-other-service");
+            String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
             ResponseEntity<Response> re = restTemplate.exchange(
                     order_other_service_url + "/api/v1/orderOtherService/orderOther/admin",
                     HttpMethod.PUT,
@@ -155,7 +153,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         if (request.getTrainNumber().startsWith("G") || request.getTrainNumber().startsWith("D")) {
             AdminOrderServiceImpl.LOGGER.info("[addOrder][Add New Order][trainNumber starts With G or D]");
             HttpEntity requestEntity = new HttpEntity(request, headers);
-            String order_service_url = getServiceUrl("ts-order-service");
+            String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
             ResponseEntity<Response> re = restTemplate.exchange(
                     order_service_url + "/api/v1/orderservice/order/admin",
                     HttpMethod.POST,
@@ -166,7 +164,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         } else {
             AdminOrderServiceImpl.LOGGER.info("[addOrder][Add New Order Other][trainNumber doesn't starts With G or D]");
             HttpEntity requestEntity = new HttpEntity(request, headers);
-            String order_other_service_url = getServiceUrl("ts-order-other-service");
+            String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
             ResponseEntity<Response> re = restTemplate.exchange(
                      order_other_service_url + "/api/v1/orderOtherService/orderOther/admin",
                     HttpMethod.POST,

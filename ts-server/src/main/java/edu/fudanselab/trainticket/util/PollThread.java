@@ -2,6 +2,8 @@ package edu.fudanselab.trainticket.util;
 
 import edu.fudanselab.trainticket.entity.Contacts;
 import edu.fudanselab.trainticket.util.Response;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import edu.fudanselab.trainticket.entity.WaitListOrderStatus;
 import edu.fudanselab.trainticket.entity.WaitListOrderVO;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.service.WaitListOrderService;
 
 import java.util.Date;
@@ -40,7 +43,7 @@ public class PollThread extends Thread{
 
     @Override
     public void run() {
-        String service_url=getServiceUrl("ts-preserve-service");
+        String service_url=serviceResolver.getServiceUrl("ts-preserve-service");
         HttpEntity requestEntityPreserve = new HttpEntity(waitListOrderVO,httpHeaders);
 
         //TODO compare with waitUntilTime
@@ -67,9 +70,8 @@ public class PollThread extends Thread{
         }
     }
 
-    private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     private Response doPreserve(String url, HttpEntity requestParam){
         ResponseEntity<Response<Contacts>> rePostPreserveResult = restTemplate.exchange(

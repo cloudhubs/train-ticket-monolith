@@ -4,6 +4,7 @@ import edu.fudanselab.trainticket.entity.ConsignRecord;
 import edu.fudanselab.trainticket.entity.Consign;
 import edu.fudanselab.trainticket.repository.ConsignRepository;
 import edu.fudanselab.trainticket.service.ConsignService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,10 +40,8 @@ public class ConsignServiceImpl implements ConsignService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsignServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
 
     @Override
@@ -65,7 +64,7 @@ public class ConsignServiceImpl implements ConsignService {
 
         //get the price
         HttpEntity requestEntity = new HttpEntity(null, headers);
-        String consign_price_service_url = getServiceUrl("ts-consign-price-service");
+        String consign_price_service_url = serviceResolver.getServiceUrl("ts-consign-price-service");
         ResponseEntity<Response<Double>> re = restTemplate.exchange(
                 consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
                 HttpMethod.GET,
@@ -98,7 +97,7 @@ public class ConsignServiceImpl implements ConsignService {
         //Recalculate price
         if (originalRecord.getWeight() != consignRequest.getWeight()) {
             HttpEntity requestEntity = new HttpEntity<>(null, headers);
-            String consign_price_service_url = getServiceUrl("ts-consign-price-service");
+            String consign_price_service_url = serviceResolver.getServiceUrl("ts-consign-price-service");
             ResponseEntity<Response<Double>> re = restTemplate.exchange(
                     consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
                     HttpMethod.GET,

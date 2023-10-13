@@ -7,6 +7,7 @@ import edu.fudanselab.trainticket.entity.SoldTicket;
 import edu.fudanselab.trainticket.entity.SeatClass;
 import edu.fudanselab.trainticket.entity.OrderSecurity;
 import edu.fudanselab.trainticket.service.OrderService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.entity.Ticket;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.util.StringUtils;
@@ -45,8 +46,8 @@ public class OrderServiceImpl implements OrderService {
 //    @Autowired
 //    private DiscoveryClient discoveryClient;
 
-    private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName; }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
 //    @Value("${station-service.url}")
 //    String station_service_url;
@@ -213,7 +214,7 @@ public class OrderServiceImpl implements OrderService {
     public List<String> queryForStationId(List<String> ids, HttpHeaders headers) {
 
         HttpEntity requestEntity = new HttpEntity(ids, null);
-        String station_service_url=getServiceUrl("ts-station-service");
+        String station_service_url=serviceResolver.getServiceUrl("ts-station-service");
         ResponseEntity<Response<List<String>>> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/namelist",
                 HttpMethod.POST,

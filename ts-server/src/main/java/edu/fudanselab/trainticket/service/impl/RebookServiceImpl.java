@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import edu.fudanselab.trainticket.entity.RebookInfo;
 import edu.fudanselab.trainticket.service.RebookService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -47,10 +48,8 @@ public class RebookServiceImpl implements RebookService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RebookServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response rebook(RebookInfo info, HttpHeaders httpHeaders) {
@@ -255,7 +254,7 @@ public class RebookServiceImpl implements RebookService {
 
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
         HttpEntity requestEntityTicket = new HttpEntity(seatRequest, newHeaders);
-        String seat_service_url = getServiceUrl("ts-seat-service");
+        String seat_service_url = serviceResolver.getServiceUrl("ts-seat-service");
         ResponseEntity<Response<Ticket>> reTicket = restTemplate.exchange(
                 seat_service_url + "/api/v1/seatservice/seats",
                 HttpMethod.POST,
@@ -303,8 +302,8 @@ public class RebookServiceImpl implements RebookService {
     private Response<TripAllDetail> getTripAllDetailInformation(TripAllDetailInfo gtdi, String tripId, HttpHeaders httpHeaders) {
         Response<TripAllDetail> gtdr;
         String requestUrl = "";
-        String travel_service_url = getServiceUrl("ts-travel-service");
-        String travel2_service_url = getServiceUrl("ts-travel2-service");
+        String travel_service_url = serviceResolver.getServiceUrl("ts-travel-service");
+        String travel2_service_url = serviceResolver.getServiceUrl("ts-travel2-service");
         if (tripId.startsWith("G") || tripId.startsWith("D")) {
             requestUrl = travel_service_url + "/api/v1/travelservice/trip_detail";
             // ts-travel-service:12346/travel/getTripAllDetailInfo
@@ -326,8 +325,8 @@ public class RebookServiceImpl implements RebookService {
 
     private Response createOrder(CommonOrder order, String tripId, HttpHeaders httpHeaders) {
         String requestUrl = "";
-        String order_service_url = getServiceUrl("ts-order-service");
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
+        String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
         if (tripId.startsWith("G") || tripId.startsWith("D")) {
             // ts-order-service:12031/order/create
             requestUrl = order_service_url + "/api/v1/orderservice/order";
@@ -347,8 +346,8 @@ public class RebookServiceImpl implements RebookService {
 
     private Response updateOrder(CommonOrder info, String tripId, HttpHeaders httpHeaders) {
         String requestOrderUtl = "";
-        String order_service_url = getServiceUrl("ts-order-service");
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
+        String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
         if (tripGD(tripId)) {
             requestOrderUtl = order_service_url + "/api/v1/orderservice/order";
         } else {
@@ -367,8 +366,8 @@ public class RebookServiceImpl implements RebookService {
     private Response deleteOrder(String orderId, String tripId, HttpHeaders httpHeaders) {
 
         String requestUrl = "";
-        String order_service_url = getServiceUrl("ts-order-service");
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
+        String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
         if (tripGD(tripId)) {
             requestUrl = order_service_url + "/api/v1/orderservice/order/" + orderId;
         } else {
@@ -389,8 +388,8 @@ public class RebookServiceImpl implements RebookService {
         Response<CommonOrder> queryOrderResult;
         //Change can only be changed once, check the status of the order to determine whether it has been changed
         String requestUrl = "";
-        String order_service_url = getServiceUrl("ts-order-service");
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
+        String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
         if (info.getOldTripId().startsWith("G") || info.getOldTripId().startsWith("D")) {
             requestUrl = order_service_url + "/api/v1/orderservice/order/" + info.getOrderId();
         } else {
@@ -411,7 +410,7 @@ public class RebookServiceImpl implements RebookService {
 
     public TrainType queryTrainTypeByName(String trainTypeName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String train_service_url=getServiceUrl("ts-train-service");
+        String train_service_url=serviceResolver.getServiceUrl("ts-train-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
                 HttpMethod.GET,
@@ -424,7 +423,7 @@ public class RebookServiceImpl implements RebookService {
 
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String route_service_url=getServiceUrl("ts-route-service");
+        String route_service_url=serviceResolver.getServiceUrl("ts-route-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + routeId,
                 HttpMethod.GET,
@@ -449,7 +448,7 @@ public class RebookServiceImpl implements RebookService {
 
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
         HttpEntity requestEntityPayDifferentMoney = new HttpEntity(info, newHeaders);
-        String inside_payment_service_url = getServiceUrl("ts-inside-payment-service");
+        String inside_payment_service_url = serviceResolver.getServiceUrl("ts-inside-payment-service");
         ResponseEntity<Response> rePayDifferentMoney = restTemplate.exchange(
                 inside_payment_service_url + "/api/v1/inside_pay_service/inside_payment/difference",
                 HttpMethod.POST,
@@ -463,7 +462,7 @@ public class RebookServiceImpl implements RebookService {
 
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
         HttpEntity requestEntityDrawBackMoney = new HttpEntity(newHeaders);
-        String inside_payment_service_url = getServiceUrl("ts-inside-payment-service");
+        String inside_payment_service_url = serviceResolver.getServiceUrl("ts-inside-payment-service");
         ResponseEntity<Response> reDrawBackMoney = restTemplate.exchange(
                 inside_payment_service_url + "/api/v1/inside_pay_service/inside_payment/drawback/" + userId + "/" + money,
                 HttpMethod.GET,

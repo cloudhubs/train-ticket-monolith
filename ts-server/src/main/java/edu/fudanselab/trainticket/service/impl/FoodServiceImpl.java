@@ -6,6 +6,7 @@ import edu.fudanselab.trainticket.entity.AllTripFood;
 import edu.fudanselab.trainticket.entity.StationFoodStore;
 import edu.fudanselab.trainticket.entity.Delivery;
 import edu.fudanselab.trainticket.service.FoodService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.util.JsonUtils;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.entity.Route;
@@ -48,10 +49,8 @@ public class FoodServiceImpl implements FoodService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FoodServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     String success = "Success.";
     String orderIdNotExist = "Order Id Is Non-Existent.";
@@ -228,7 +227,7 @@ public class FoodServiceImpl implements FoodService {
 
         /**--------------------------------------------------------------------------------------*/
         HttpEntity requestEntityGetTrainFoodListResult = new HttpEntity(null);
-        String train_food_service_url = getServiceUrl("ts-train-food-service");
+        String train_food_service_url = serviceResolver.getServiceUrl("ts-train-food-service");
         ResponseEntity<Response<List<Food>>> reGetTrainFoodListResult = restTemplate.exchange(
                 train_food_service_url + "/api/v1/trainfoodservice/trainfoods/" + tripId,
                 HttpMethod.GET,
@@ -250,7 +249,7 @@ public class FoodServiceImpl implements FoodService {
         //车次途经的车站
         /**--------------------------------------------------------------------------------------*/
         HttpEntity requestEntityGetRouteResult = new HttpEntity(null, null);
-        String travel_service_url = getServiceUrl("ts-travel-service");
+        String travel_service_url = serviceResolver.getServiceUrl("ts-travel-service");
         ResponseEntity<Response<Route>> reGetRouteResult = restTemplate.exchange(
                 travel_service_url + "/api/v1/travelservice/routes/" + tripId,
                 HttpMethod.GET,
@@ -285,7 +284,7 @@ public class FoodServiceImpl implements FoodService {
             }
 
             HttpEntity requestEntityFoodStoresListResult = new HttpEntity(stations, null);
-            String station_food_service_url = getServiceUrl("ts-station-food-service");
+            String station_food_service_url = serviceResolver.getServiceUrl("ts-station-food-service");
             ResponseEntity<Response<List<StationFoodStore>>> reFoodStoresListResult = restTemplate.exchange(
                      station_food_service_url + "/api/v1/stationfoodservice/stationfoodstores",
                     HttpMethod.POST,

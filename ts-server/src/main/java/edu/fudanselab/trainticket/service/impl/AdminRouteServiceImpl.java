@@ -4,6 +4,8 @@ import edu.fudanselab.trainticket.entity.Route;
 import edu.fudanselab.trainticket.entity.RouteInfoCommon;
 import edu.fudanselab.trainticket.util.Response;
 import edu.fudanselab.trainticket.service.AdminRouteService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +31,14 @@ public class AdminRouteServiceImpl implements AdminRouteService {
 
     public static final Logger logger = LoggerFactory.getLogger(AdminRouteServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response getAllRoutes(HttpHeaders headers) {
 
         HttpEntity requestEntity = new HttpEntity(null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = serviceResolver.getServiceUrl("ts-route-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                  route_service_url + "/api/v1/routeservice/routes",
                 HttpMethod.GET,
@@ -68,7 +68,7 @@ public class AdminRouteServiceImpl implements AdminRouteService {
         }
 
         HttpEntity requestEntity = new HttpEntity(request, null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = serviceResolver.getServiceUrl("ts-route-service");
         ResponseEntity<Response<Route>> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes",
                 HttpMethod.POST,
@@ -85,7 +85,7 @@ public class AdminRouteServiceImpl implements AdminRouteService {
     public Response deleteRoute(String routeId, HttpHeaders headers) {
 
         HttpEntity requestEntity = new HttpEntity(null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = serviceResolver.getServiceUrl("ts-route-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + routeId,
                 HttpMethod.DELETE,
@@ -101,7 +101,7 @@ public class AdminRouteServiceImpl implements AdminRouteService {
     public Response checkStationsExists(List<String> stationNames, HttpHeaders headers) {
         logger.info("[checkStationsExists][Check Stations Exists][stationNames: {}]", stationNames);
         HttpEntity requestEntity = new HttpEntity(stationNames, null);
-        String station_service_url=getServiceUrl("ts-station-service");
+        String station_service_url=serviceResolver.getServiceUrl("ts-station-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/idlist",
                 HttpMethod.POST,

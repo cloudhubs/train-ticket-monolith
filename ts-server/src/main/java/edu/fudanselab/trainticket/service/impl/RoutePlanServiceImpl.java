@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import edu.fudanselab.trainticket.service.RoutePlanService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,10 +40,8 @@ public class RoutePlanServiceImpl implements RoutePlanService {
     private DiscoveryClient discoveryClient;*/
     private static final Logger LOGGER = LoggerFactory.getLogger(RoutePlanServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response searchCheapestResult(RoutePlanInfo info, HttpHeaders headers) {
@@ -174,7 +173,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         //1.Get the route through the two stations
 
         HttpEntity requestEntity = new HttpEntity(null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = serviceResolver.getServiceUrl("ts-route-service");
         ResponseEntity<Response<ArrayList<Route>>> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + info.getStartStation() + "/" + info.getEndStation(),
                 HttpMethod.GET,
@@ -210,7 +209,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         }
         //4.Depending on the route, go to travel-service or travel2service to get the train information
         requestEntity = new HttpEntity(resultRoutes, null);
-        String travel_service_url=getServiceUrl("ts-travel-service");
+        String travel_service_url=serviceResolver.getServiceUrl("ts-travel-service");
         ResponseEntity<Response<ArrayList<ArrayList<Trip>>>> re2 = restTemplate.exchange(
                 travel_service_url + "/api/v1/travelservice/trips/routes",
                 HttpMethod.POST,
@@ -220,7 +219,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
         ArrayList<ArrayList<Trip>> travelTrips = re2.getBody().getData();
 
-        String travel2_service_url=getServiceUrl("ts-travel2-service");
+        String travel2_service_url=serviceResolver.getServiceUrl("ts-travel2-service");
         re2 = restTemplate.exchange(
                 travel2_service_url + "/api/v1/travel2service/trips/routes",
                 HttpMethod.POST,
@@ -294,7 +293,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = serviceResolver.getServiceUrl("ts-route-service");
         ResponseEntity<Response<Route>> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + routeId,
                 HttpMethod.GET,
@@ -315,7 +314,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
     private ArrayList<TripResponse> getTripFromHighSpeedTravelServive(TripInfo info, HttpHeaders headers) {
         RoutePlanServiceImpl.LOGGER.info("[getTripFromHighSpeedTravelServive][trip info: {}]", info);
         HttpEntity requestEntity = new HttpEntity(info, null);
-        String travel_service_url=getServiceUrl("ts-travel-service");
+        String travel_service_url=serviceResolver.getServiceUrl("ts-travel-service");
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
                 travel_service_url + "/api/v1/travelservice/trips/left",
                 HttpMethod.POST,
@@ -330,7 +329,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
     private ArrayList<TripResponse> getTripFromNormalTrainTravelService(TripInfo info, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(info, null);
-        String travel2_service_url=getServiceUrl("ts-travel2-service");
+        String travel2_service_url=serviceResolver.getServiceUrl("ts-travel2-service");
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
                 travel2_service_url + "/api/v1/travel2service/trips/left",
                 HttpMethod.POST,
@@ -345,8 +344,8 @@ public class RoutePlanServiceImpl implements RoutePlanService {
     private List<String> getStationList(String tripId, HttpHeaders headers) {
 
         String path;
-        String travel_service_url=getServiceUrl("ts-travel-service");
-        String travel2_service_url=getServiceUrl("ts-travel2-service");
+        String travel_service_url=serviceResolver.getServiceUrl("ts-travel-service");
+        String travel2_service_url=serviceResolver.getServiceUrl("ts-travel2-service");
         if (tripId.charAt(0) == 'G' || tripId.charAt(0) == 'D') {
             path = travel_service_url + "/api/v1/travelservice/routes/" + tripId;
         } else {

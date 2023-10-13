@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import edu.fudanselab.trainticket.service.ExecuteService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 
 /**
  * @author fdse
@@ -30,10 +31,8 @@ public class ExecuteServiceImpl implements ExecuteService {
     String orderStatusWrong = "Order Status Wrong";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecuteServiceImpl.class);
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
 
     @Override
@@ -136,7 +135,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         ExecuteServiceImpl.LOGGER.info("[Execute Service][Execute Order] Executing....");
         headers = null;
         HttpEntity requestEntity = new HttpEntity(headers);
-        String order_service_url=getServiceUrl("ts-order-service");
+        String order_service_url=serviceResolver.getServiceUrl("ts-order-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 order_service_url + "/api/v1/orderservice/order/status/" + orderId + "/" + status,
                 HttpMethod.GET,
@@ -150,7 +149,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         ExecuteServiceImpl.LOGGER.info("[Execute Service][Execute Order] Executing....");
         headers = null;
         HttpEntity requestEntity = new HttpEntity(headers);
-        String order_other_service_url=getServiceUrl("ts-order-other-service");
+        String order_other_service_url=serviceResolver.getServiceUrl("ts-order-other-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther/status/" + orderId + "/" + status,
                 HttpMethod.GET,
@@ -163,7 +162,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         ExecuteServiceImpl.LOGGER.info("[Execute Service][Get Order] Getting....");
         headers = null;
         HttpEntity requestEntity = new HttpEntity(headers);
-        String order_service_url=getServiceUrl("ts-order-service");
+        String order_service_url=serviceResolver.getServiceUrl("ts-order-service");
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
                 order_service_url + "/api/v1/orderservice/order/" + orderId,
                 HttpMethod.GET,
@@ -177,7 +176,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         ExecuteServiceImpl.LOGGER.info("[getOrderByIdFromOrderOther][Execute Service, Get Order]");
         headers = null;
         HttpEntity requestEntity = new HttpEntity(headers);
-        String order_other_service_url=getServiceUrl("ts-order-other-service");
+        String order_other_service_url=serviceResolver.getServiceUrl("ts-order-other-service");
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther/" + orderId,
                 HttpMethod.GET,

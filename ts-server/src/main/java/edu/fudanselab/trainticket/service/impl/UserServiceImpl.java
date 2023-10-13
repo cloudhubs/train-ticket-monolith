@@ -18,6 +18,7 @@ import edu.fudanselab.trainticket.dto.AuthDto;
 import edu.fudanselab.trainticket.dto.UserDto;
 import edu.fudanselab.trainticket.entity.User;
 import edu.fudanselab.trainticket.repository.UserRepository;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.service.UserService;
 
 import java.util.ArrayList;
@@ -41,11 +42,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String getServiceUrl(String serviceName) {
-
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response saveUser(UserDto userDto, HttpHeaders headers) {
@@ -86,7 +84,7 @@ public class UserServiceImpl implements UserService {
         LOGGER.info("[createDefaultAuthUser][CALL TO AUTH][AuthDto: {}]", dto.toString());
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<AuthDto> entity = new HttpEntity<>(dto, null);
-        String auth_service_url = getServiceUrl("ts-auth-service");
+        String auth_service_url = serviceResolver.getServiceUrl("ts-auth-service");
 
         //List<Objects> auth_svcs = discoveryClient.getInstances("ts-auth-service");
         List<Objects> auth_svcs = new ArrayList<>();
@@ -184,7 +182,7 @@ public class UserServiceImpl implements UserService {
 
         HttpEntity<Response> httpEntity = new HttpEntity<>(newHeaders);
 
-        String auth_service_url = getServiceUrl("ts-auth-service");
+        String auth_service_url = serviceResolver.getServiceUrl("ts-auth-service");
         String AUTH_SERVICE_URI = auth_service_url + "/api/v1";
         restTemplate.exchange(AUTH_SERVICE_URI + "/users/" + userId,
                 HttpMethod.DELETE,

@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import edu.fudanselab.trainticket.entity.SecurityConfig;
 import edu.fudanselab.trainticket.repository.SecurityRepository;
 import edu.fudanselab.trainticket.service.SecurityService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,10 +40,8 @@ public class SecurityServiceImpl implements SecurityService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     String success = "Success";
 
@@ -126,7 +125,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     private OrderSecurity getSecurityOrderInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String order_service_url = getServiceUrl("ts-order-service");
+        String order_service_url = serviceResolver.getServiceUrl("ts-order-service");
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
                 order_service_url + "/api/v1/orderservice/order/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,
@@ -141,7 +140,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     private OrderSecurity getSecurityOrderOtherInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_other_service_url = serviceResolver.getServiceUrl("ts-order-other-service");
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,

@@ -3,6 +3,7 @@ package edu.fudanselab.trainticket.service.impl;
 import edu.fudanselab.trainticket.dto.UserDto;
 import edu.fudanselab.trainticket.entity.User;
 import edu.fudanselab.trainticket.service.AdminUserService;
+import edu.fudanselab.trainticket.service.ServiceResolver;
 import edu.fudanselab.trainticket.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,15 +35,13 @@ public class AdminUserServiceImpl implements AdminUserService {
 //    String user_service_url;
 //    private final String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
 
-    private String getServiceUrl(String serviceName) {
-        return "http://localhost";
-//        return "http://" + serviceName;
-    }
+    @Autowired
+    private ServiceResolver serviceResolver;
 
     @Override
     public Response getAllUsers(HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String user_service_url = getServiceUrl("ts-user-service");
+        String user_service_url = serviceResolver.getServiceUrl("ts-user-service");
         String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
         ResponseEntity<Response<List<User>>> re = restTemplate.exchange(
                 USER_SERVICE_IP_URI,
@@ -67,7 +66,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
         HttpEntity<Response> requestEntity = new HttpEntity<>(newHeaders);
 
-        String user_service_url = getServiceUrl("ts-user-service");
+        String user_service_url = serviceResolver.getServiceUrl("ts-user-service");
         String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
         ResponseEntity<Response> re = restTemplate.exchange(
                 USER_SERVICE_IP_URI + "/" + userId,
@@ -91,7 +90,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         newHeaders.set(HttpHeaders.AUTHORIZATION, token);
 
         HttpEntity requestEntity = new HttpEntity(userDto, newHeaders);
-        String user_service_url = getServiceUrl("ts-user-service");
+        String user_service_url = serviceResolver.getServiceUrl("ts-user-service");
         String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
         ResponseEntity<Response> re = restTemplate.exchange(
                 USER_SERVICE_IP_URI,
@@ -112,7 +111,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     public Response addUser(UserDto userDto, HttpHeaders headers) {
         LOGGER.info("[addUser][ADD USER INFO][UserDto: {}]", userDto.toString());
         HttpEntity requestEntity = new HttpEntity(userDto, null);
-        String user_service_url = getServiceUrl("ts-user-service");
+        String user_service_url = serviceResolver.getServiceUrl("ts-user-service");
         String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
         ResponseEntity<Response<User>> re = restTemplate.exchange(
                 USER_SERVICE_IP_URI + "/register",
