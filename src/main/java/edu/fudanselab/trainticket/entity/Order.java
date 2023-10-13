@@ -15,14 +15,14 @@ import java.util.Date;
 @Data
 @Table(name = "orders")
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "order-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
 
     @Id
     @Column(length = 36)
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "order-jpa-uuid")
     private String id;
 
     private String boughtDate;

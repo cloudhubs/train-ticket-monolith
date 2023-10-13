@@ -12,13 +12,13 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "inside-payment-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @Table(name="inside_payment")
 public class InsidePayment {
     @Id
     @NotNull
     @Column(length = 36)
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "inside-payment-jpa-uuid")
     private String id;
 
     @NotNull

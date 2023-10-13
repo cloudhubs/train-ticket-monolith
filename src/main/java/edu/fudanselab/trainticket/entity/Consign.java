@@ -14,10 +14,10 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@GenericGenerator(name="jpa-uuid",strategy ="uuid")
+@GenericGenerator(name="consign-jpa-uuid",strategy ="org.hibernate.id.UUIDGenerator")
 public class Consign {
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "consign-jpa-uuid")
     @Column(length = 36)
     private String id;        //id主键改成String类型的 自定义生成策略
     private String orderId;   //这次托运关联订单

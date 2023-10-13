@@ -15,10 +15,10 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "train-type-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class TrainType {
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "train-type-jpa-uuid")
     @Column(length = 36)
     private String id;
 

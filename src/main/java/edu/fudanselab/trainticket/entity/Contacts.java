@@ -16,14 +16,14 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "contacts-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(indexes = {@Index(name = "account_document_idx", columnList = "account_id, document_number, document_type", unique = true)})
 public class Contacts {
 
     @Id
 //    private UUID id;
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "contacts-jpa-uuid")
     @Column(length = 36)
     private String id;
     @Column(name = "account_id")

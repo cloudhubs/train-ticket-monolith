@@ -16,16 +16,16 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "money-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @Entity
 public class Money {
     /*@Id
     @Column(name = "id", nullable = false, length = 36)
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "money-jpa-uuid")
     private String id;*/
 
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "money-jpa-uuid")
     @Column(name = "id", nullable = false, length = 36)
     private String id;
 

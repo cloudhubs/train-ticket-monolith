@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "inside-payment-money-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @Table(name = "inside_money")
 public class InsidePaymentMoney {
 
@@ -20,7 +20,7 @@ public class InsidePaymentMoney {
     @NotNull
     @Id
     @Column(length = 36)
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "inside-payment-money-jpa-uuid")
     private String id;
 
     @Valid

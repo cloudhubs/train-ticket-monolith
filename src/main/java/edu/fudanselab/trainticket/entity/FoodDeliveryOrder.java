@@ -12,14 +12,14 @@ import edu.fudanselab.trainticket.entity.Food;
 
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+@GenericGenerator(name = "food-delivery-jpa-uuid", strategy = "uuid")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodDeliveryOrder {
 
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "food-delivery-jpa-uuid")
     @Column(length = 36)
     private String id;
 

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author fdse
  */
 @Data
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "auth-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

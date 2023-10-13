@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "station-food-store-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(indexes = {@Index(name = "station_store_idx", columnList = "station_name, store_name", unique = true)})

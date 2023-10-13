@@ -13,10 +13,10 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy ="uuid")
+@GenericGenerator(name = "wait-list-order-jpa-uuid", strategy ="uuid")
 public class WaitListOrder {
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "wait-list-order-jpa-uuid")
     @Column(length = 36)
     private String id;
 

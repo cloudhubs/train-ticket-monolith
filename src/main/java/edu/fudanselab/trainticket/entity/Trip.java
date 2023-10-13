@@ -16,12 +16,12 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "trip2")
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "trip-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class
 Trip {
     @Valid
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "trip-jpa-uuid")
     @Column(length = 36)
     private String id;
 

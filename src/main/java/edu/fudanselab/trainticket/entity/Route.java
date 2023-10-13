@@ -18,7 +18,7 @@ import java.util.UUID;
 @Data
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "route-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Route {
 
     @Id

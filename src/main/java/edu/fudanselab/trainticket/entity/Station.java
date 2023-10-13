@@ -14,10 +14,10 @@ import java.util.UUID;
 
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "station-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Station {
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "station-jpa-uuid")
     @Column(length = 36)
     private String id;
 

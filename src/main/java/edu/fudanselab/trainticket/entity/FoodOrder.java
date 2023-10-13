@@ -15,11 +15,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@GenericGenerator(name = "food-order-jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class FoodOrder {
 
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
+    @GeneratedValue(generator = "food-order-jpa-uuid")
     @Column(length = 36)
     private String id;
 
