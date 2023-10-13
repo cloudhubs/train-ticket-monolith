@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/train-ticket?useSSL=false
+    username: root
+    password: test@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: trainticket_notify@163.com
+    password: GZKSCXHBOLKMCLDQ
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+swagger:
+  controllerPackage: edu.fudanselab.trainticket.controller
+
+test_send_mail_user: chysonnet@gmail.com
