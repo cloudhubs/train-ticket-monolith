@@ -8,6 +8,7 @@ services:
       - OTEL_RESOURCE_ATTRIBUTES
       - OTEL_LOGS_EXPORTER=otlp
       - OTEL_SERVICE_NAME=tsserver
+      - OTEL_INSTRUMENTATION_METHODS_INCLUDE=${TS_SERVER_OTEL_INSTRUMENTATION_METHODS_INCLUDE}
   # ********************
   # Telemetry Components
   # ********************
