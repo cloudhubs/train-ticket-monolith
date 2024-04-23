@@ -33,13 +33,13 @@ cd trainticket/
 #### 2. Run the Docker Compose command to set up the necessary infrastructure for the application:
 
 ```bash
-docker-compose up -d
+docker-compose up --build -d
 ```
 
-#### 3. Start the RabbitMQ server using the provided Docker Compose configuration:
+If want to run using traces use:
 
-```bash
-docker-compose -f ./rabbit-mq-docker-compose.yml up -d
+```sh
+
 ```
 
 
