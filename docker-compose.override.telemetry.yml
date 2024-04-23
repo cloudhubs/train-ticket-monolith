@@ -1,0 +1,122 @@
+services:
+  ts-server:
+    build:
+      target: telemetry
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT
+      - OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+      - OTEL_RESOURCE_ATTRIBUTES
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_SERVICE_NAME=tsserver
+      - OTEL_INSTRUMENTATION_METHODS_INCLUDE=${TS_SERVER_OTEL_INSTRUMENTATION_METHODS_INCLUDE}
+  # ********************
+  # Telemetry Components
+  # ********************
+  # Jaeger
+  jaeger:
+    image: ${JAEGERTRACING_IMAGE}
+    container_name: jaeger
+    command:
+      - "--memory.max-traces=5000"
+      - "--query.base-path=/jaeger/ui"
+      - "--prometheus.server-url=http://${PROMETHEUS_ADDR}"
+      - "--prometheus.query.normalize-calls=true"
+      - "--prometheus.query.normalize-duration=true"
+    deploy:
+      resources:
+        limits:
+          memory: 400M
+    restart: unless-stopped
+    ports:
+      - "${JAEGER_SERVICE_PORT}:${JAEGER_SERVICE_PORT}"         # Jaeger UI
+      - "${OTEL_COLLECTOR_PORT_GRPC}"
+    environment:
+      - METRICS_STORAGE_TYPE=prometheus
+
+  # Grafana
+  grafana:
+    image: ${GRAFANA_IMAGE}
+    container_name: grafana
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    restart: unless-stopped
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-opensearch-datasource"
+    volumes:
+      - ./telemetry/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./telemetry/grafana/provisioning/:/etc/grafana/provisioning/
+    ports:
+      - "${GRAFANA_SERVICE_PORT}:${GRAFANA_SERVICE_PORT}"
+
+  # OpenTelemetry Collector
+  otelcol:
+    image: ${COLLECTOR_CONTRIB_IMAGE}
+    container_name: otelcol
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+    restart: unless-stopped
+    command: [ "--config=/etc/otelcol-config.yml" ]
+    volumes:
+      - ./telemetry/otelcollector/otelcol-config.yml:/etc/otelcol-config.yml
+    ports:
+      - "${OTEL_COLLECTOR_PORT_GRPC}"
+      - "${OTEL_COLLECTOR_PORT_HTTP}"
+    depends_on:
+      - jaeger
+    environment:
+      - ENVOY_PORT # TODO: Check
+
+  # Prometheus
+  prometheus:
+    image: ${PROMETHEUS_IMAGE}
+    container_name: prometheus
+    command:
+      - --web.console.templates=/etc/prometheus/consoles
+      - --web.console.libraries=/etc/prometheus/console_libraries
+      - --storage.tsdb.retention.time=1h
+      - --config.file=/etc/prometheus/prometheus-config.yaml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle
+      - --web.route-prefix=/
+      - --enable-feature=exemplar-storage
+      - --enable-feature=otlp-write-receiver
+    volumes:
+      - ./telemetry/prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    restart: unless-stopped
+    ports:
+      - "${PROMETHEUS_SERVICE_PORT}:${PROMETHEUS_SERVICE_PORT}"
+
+  # OpenSearch
+  opensearch:
+    image: ${OPENSEARCH_IMAGE}
+    container_name: opensearch
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+    restart: unless-stopped
+    environment:
+      - cluster.name=ts-monolith-cluster
+      - node.name=ts-monolith-node
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - OPENSEARCH_JAVA_OPTS=-Xms300m -Xmx300m
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+      - DISABLE_SECURITY_PLUGIN=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9200"
